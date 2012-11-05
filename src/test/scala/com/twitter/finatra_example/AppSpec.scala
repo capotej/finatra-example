@@ -10,9 +10,15 @@ class AppSpec extends SpecHelper {
   val app = new App.ExampleApp
 
   
-  "GET /" should "respond 200" in {
-    get("/")
-    response.body should equal ("ok")
+  "GET /hello" should "response with hello world" in {
+    get("/hello")
+    response.body should equal ("hello world")
+    response.code should equal (200)
+  }
+
+  "GET /user/foo" should "response with foo" in {
+    get("/user/foo")
+    response.body should equal ("hello foo")
     response.code should equal (200)
   }
 

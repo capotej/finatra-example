@@ -6,9 +6,16 @@ object App {
 
   
   class ExampleApp extends Controller {
-    get("/") { request =>
-      render.plain("ok").toFuture
+
+    get("/hello") { request =>
+      render.plain("hello world").toFuture
     }
+
+    get("/user/:username") { request =>
+      val username = request.routeParams.getOrElse("username", "unknown")
+      render.plain("hello " + username).toFuture
+    }
+
   }
 
   val app = new ExampleApp
