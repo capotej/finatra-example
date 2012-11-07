@@ -12,7 +12,7 @@ object App {
      *
      * curl http://localhost:7070/hello => "hello world"
      */
-    get("/hello") { request =>
+    get("/") { request =>
       render.plain("hello world").toFuture
     }
 

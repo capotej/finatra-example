@@ -11,7 +11,7 @@ class AppSpec extends SpecHelper {
 
   
   "GET /hello" should "respond with hello world" in {
-    get("/hello")
+    get("/")
     response.body should equal ("hello world")
   }
 
