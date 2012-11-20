@@ -10,6 +10,18 @@ class AppSpec extends SpecHelper {
   val app = new App.ExampleApp
 
   
+  "GET /notfound" should "respond 404" in {
+    get("/notfound")
+    response.body   should equal ("not found yo")
+    response.code   should equal (404)
+  }
+
+  "GET /error" should "respond 500" in {
+    get("/error")
+    response.body   should equal ("whoops!")
+    response.code   should equal (500)
+  }
+
   "GET /hello" should "respond with hello world" in {
     get("/")
     response.body should equal ("hello world")
