@@ -95,8 +95,26 @@ object App {
       render.plain("we never make it here").toFuture
     }
 
+    /**
+     * Custom Error Handling with custom Exception
+     *
+     * curl http://localhost:7070/unautorized
+     */
+    class Unauthorized extends Exception
+
+    get("/unauthorized") { request =>
+      throw new Unauthorized
+    }
+
     error { request =>
-      render.status(500).plain("whoops!").toFuture
+      request.error match {
+        case Some(e:ArithmeticException) =>
+          render.status(500).plain("whoops, divide by zero!").toFuture
+        case Some(e:Unauthorized) =>
+          render.status(401).plain("Not Authorized!").toFuture
+        case _ =>
+          render.status(500).plain("Something went wrong!").toFuture
+      }
     }
 
 

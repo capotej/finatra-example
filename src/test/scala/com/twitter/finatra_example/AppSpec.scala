@@ -18,8 +18,14 @@ class AppSpec extends SpecHelper {
 
   "GET /error" should "respond 500" in {
     get("/error")
-    response.body   should equal ("whoops!")
+    response.body   should equal ("whoops, divide by zero!")
     response.code   should equal (500)
+  }
+
+  "GET /unauthorized" should "respond 401" in {
+    get("/unauthorized")
+    response.body   should equal ("Not Authorized!")
+    response.code   should equal (401)
   }
 
   "GET /hello" should "respond with hello world" in {
