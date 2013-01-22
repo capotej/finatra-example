@@ -58,5 +58,34 @@ class AppSpec extends SpecHelper {
     response.body should equal("Your value is random value here")
   }
 
+  "GET /blog/index.json" should "should have json" in {
+    get("/blog/index.json")
+    response.body should equal("""{"value":"hello"}""")
+  }
+
+  "GET /blog/index.html" should "should have html" in {
+    get("/blog/index.html")
+    response.body should equal("""<h1>Hello</h1>""")
+  }
+
+  "GET /blog/index.rss" should "respond in a 415" in {
+    get("/blog/index.rss")
+    response.code should equal(415)
+  }
+
+  "GET /another/page with html" should "respond with html" in {
+    get("/another/page", Map.empty, Map("Accept" -> "text/html"))
+    response.body should equal("an html response")
+  }
+
+  "GET /another/page with json" should "respond with json" in {
+    get("/another/page", Map.empty, Map("Accept" -> "application/json"))
+    response.body should equal("an json response")
+  }
+
+  "GET /another/page with unsupported type" should "respond with catch all" in {
+    get("/another/page", Map.empty, Map("Accept" -> "foo/bar"))
+    response.body should equal("default fallback response")
+  }
 
 }

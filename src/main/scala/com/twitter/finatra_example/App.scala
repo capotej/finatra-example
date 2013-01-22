@@ -112,6 +112,8 @@ object App {
           render.status(500).plain("whoops, divide by zero!").toFuture
         case Some(e:Unauthorized) =>
           render.status(401).plain("Not Authorized!").toFuture
+        case Some(e:UnsupportedMediaType) =>
+          render.status(415).plain("Unsupported Media Type!").toFuture
         case _ =>
           render.status(500).plain("Something went wrong!").toFuture
       }
@@ -126,10 +128,39 @@ object App {
     notFound { request =>
       render.status(404).plain("not found yo").toFuture
     }
+
+
+    /**
+     * Dispatch based on Content-Type
+     *
+     * curl http://localhost:7070/index.json
+     * curl http://localhost:7070/index.html
+     */
+    get("/blog/index.:format") { request =>
+      respondTo(request) {
+        case _:Html => render.html("<h1>Hello</h1>").toFuture
+        case _:Json => render.json(Map("value" -> "hello")).toFuture
+      }
+    }
+
+    /**
+     * Also works without :format route using browser Accept header
+     *
+     * curl -H "Accept: text/html" http://localhost:7070/another/page
+     * curl -H "Accept: application/json" http://localhost:7070/another/page
+     * curl -H "Accept: foo/bar" http://localhost:7070/another/page
+     */
+
+    get("/another/page") { request =>
+      respondTo(request) {
+        case _:Html => render.plain("an html response").toFuture
+        case _:Json => render.plain("an json response").toFuture
+        case _:All => render.plain("default fallback response").toFuture
+      }
+    }
   }
 
   val app = new ExampleApp
-
 
   def main(args: Array[String]) = {
     FinatraServer.register(app)
