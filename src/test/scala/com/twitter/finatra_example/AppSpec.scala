@@ -73,6 +73,30 @@ class AppSpec extends SpecHelper {
     response.code should equal(415)
   }
 
+  "GET /go_home" should "render same as /" in {
+    get("/go_home")
+    response.code should equal(200)
+    response.body should equal("hello world")
+  }
+
+  "GET /search_for_dogs" should "render same as /search?q=dogs" in {
+    get("/search_for_dogs")
+    response.code should equal(200)
+    response.body should equal("no results for dogs")
+  }
+
+  "GET /delete_photos" should "render same as DELETE /photos" in {
+    get("/delete_photos")
+    response.code should equal(200)
+    response.body should equal("deleted!")
+  }
+
+  "GET /gif" should "render dealwithit.gif" in {
+    get("/gif")
+    response.code should equal(200)
+    response.originalResponse.getContent().array().head should equal(71) // capital "G", detects the gif
+  }
+
   "GET /another/page with html" should "respond with html" in {
     get("/another/page", Map.empty, Map("Accept" -> "text/html"))
     response.body should equal("an html response")
