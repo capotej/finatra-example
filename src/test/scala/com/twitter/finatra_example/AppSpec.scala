@@ -53,6 +53,17 @@ class AppSpec extends SpecHelper {
     response.body should equal("no results for foo")
   }
 
+  "GET /redirect" should "respond with /" in {
+    get("/redirect")
+    response.body should equal("Redirecting to <a href=\"http://localhost:7070/\">http://localhost:7070/</a>.")
+    response.code should equal(301)
+  }
+
+  "OPTIONS /some/resource" should "respond with usage description" in {
+    options("/some/resource")
+    response.body should equal("usage description")
+  }
+
   "GET /template" should "respond with a rendered template" in {
     get("/template")
     response.body should equal("Your value is random value here")
