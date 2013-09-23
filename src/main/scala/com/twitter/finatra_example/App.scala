@@ -2,11 +2,10 @@ package com.twitter.finatra_example
 
 import com.twitter.finatra._
 import com.twitter.finatra.ContentType._
-import com.twitter.ostrich.stats.Stats
 
-object App {
+object App extends FinatraServer {
 
-  
+
   class ExampleApp extends Controller {
 
     /**
@@ -15,6 +14,7 @@ object App {
      * curl http://localhost:7070/ => "hello world"
      */
     get("/") { request =>
+      log.info("hi")
       render.plain("hello world").toFuture
     }
 
@@ -84,9 +84,9 @@ object App {
       render.plain("ok").toFuture
     }
 
-    options("/some/resource") { request =>
-      render.plain("usage description").toFuture
-    }
+   options("/some/resource") { request =>
+     render.plain("usage description").toFuture
+   }
 
     /**
      * Rendering views
@@ -210,20 +210,16 @@ object App {
      *
      */
 
-    get("/slow_thing") { request =>
-      Stats.incr("slow_thing")
-      Stats.time("slow_thing time") {
-        Thread.sleep(100)
-      }
-      render.plain("slow").toFuture
-    }
+//    get("/slow_thing") { request =>
+//      Stats.incr("slow_thing")
+//      Stats.time("slow_thing time") {
+//        Thread.sleep(100)
+//      }
+//      render.plain("slow").toFuture
+//    }
 
   }
 
-  val app = new ExampleApp
+  register(new ExampleApp())
 
-  def main(args: Array[String]) = {
-    FinatraServer.register(app)
-    FinatraServer.start()
-  }
 }
