@@ -5,11 +5,10 @@ import org.scalatest.matchers.ShouldMatchers
 import com.twitter.finatra.test._
 import com.twitter.finatra_example._
 
-class AppSpec extends SpecHelper {
+class AppSpec extends FlatSpecHelper {
 
   val app = new App.ExampleApp
 
-  
   "GET /notfound" should "respond 404" in {
     get("/notfound")
     response.body   should equal ("not found yo")
