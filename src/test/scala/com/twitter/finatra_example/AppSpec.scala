@@ -9,6 +9,7 @@ class AppSpec extends FlatSpecHelper {
 
   val app = new App.ExampleApp
 
+  
   "GET /notfound" should "respond 404" in {
     get("/notfound")
     response.body   should equal ("not found yo")

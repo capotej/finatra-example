@@ -5,7 +5,7 @@ import com.twitter.finatra.ContentType._
 
 object App extends FinatraServer {
 
-
+  
   class ExampleApp extends Controller {
 
     /**
@@ -14,7 +14,6 @@ object App extends FinatraServer {
      * curl http://localhost:7070/ => "hello world"
      */
     get("/") { request =>
-      log.info("hi")
       render.plain("hello world").toFuture
     }
 
@@ -84,9 +83,9 @@ object App extends FinatraServer {
       render.plain("ok").toFuture
     }
 
-   options("/some/resource") { request =>
-     render.plain("usage description").toFuture
-   }
+    options("/some/resource") { request =>
+      render.plain("usage description").toFuture
+    }
 
     /**
      * Rendering views
@@ -210,16 +209,17 @@ object App extends FinatraServer {
      *
      */
 
-   get("/slow_thing") { request =>
-     stats.counter("slow_thing").incr()
-     stats.time("slow_thing time") {
-       Thread.sleep(100)
-     }
-     render.plain("slow").toFuture
-   }
+    get("/slow_thing") { request =>
+      stats.counter("slow_thing").incr
+      stats.time("slow_thing time") {
+        Thread.sleep(100)
+      }
+      render.plain("slow").toFuture
+    }
 
   }
 
-  register(new ExampleApp())
+  val app = new ExampleApp
 
+  register(app)
 }

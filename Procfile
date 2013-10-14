@@ -1,1 +1,1 @@
-web:    java -Denv=production -Dstats_enabled=false -Dport=$PORT -cp target/classes:target/dependency/* com.twitter.finatra_example.App
+web:    java -Dcom.twitter.finatra.config.env=production -Dcom.twitter.finatra.config.adminPort='' -Dcom.twitter.finatra.config.port=:$PORT -cp target/classes:target/dependency/* com.twitter.finatra_example.App
