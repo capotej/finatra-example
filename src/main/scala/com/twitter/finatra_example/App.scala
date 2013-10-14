@@ -210,13 +210,13 @@ object App extends FinatraServer {
      *
      */
 
-//    get("/slow_thing") { request =>
-//      Stats.incr("slow_thing")
-//      Stats.time("slow_thing time") {
-//        Thread.sleep(100)
-//      }
-//      render.plain("slow").toFuture
-//    }
+   get("/slow_thing") { request =>
+     stats.counter("slow_thing").incr()
+     stats.time("slow_thing time") {
+       Thread.sleep(100)
+     }
+     render.plain("slow").toFuture
+   }
 
   }
 
