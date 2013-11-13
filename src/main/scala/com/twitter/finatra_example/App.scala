@@ -219,7 +219,8 @@ object App extends FinatraServer {
 
   }
 
-  val app = new ExampleApp
+  val server = new FinatraServer
+  server.register(new ExampleApp)
 
   register(app)
 }
