@@ -43,7 +43,7 @@ object App extends FinatraServer {
     /**
      * Rendering json
      *
-     * curl -I http://localhost:7070/headers => "Foo:Bar"
+     * curl -I http://localhost:7070/data.json => "{foo:bar}"
      */
     get("/data.json") { request =>
       render.json(Map("foo" -> "bar")).toFuture
@@ -90,7 +90,7 @@ object App extends FinatraServer {
     /**
      * Rendering views
      *
-     * curl http://localhost:7070/posts
+     * curl http://localhost:7070/template
      */
     class AnView extends View {
       val template = "an_view.mustache"
@@ -116,7 +116,7 @@ object App extends FinatraServer {
     /**
      * Custom Error Handling with custom Exception
      *
-     * curl http://localhost:7070/unautorized
+     * curl http://localhost:7070/unauthorized
      */
     class Unauthorized extends Exception
 
@@ -171,8 +171,8 @@ object App extends FinatraServer {
     /**
      * Dispatch based on Content-Type
      *
-     * curl http://localhost:7070/index.json
-     * curl http://localhost:7070/index.html
+     * curl http://localhost:7070/blog/index.json
+     * curl http://localhost:7070/blog/index.html
      */
     get("/blog/index.:format") { request =>
       respondTo(request) {
