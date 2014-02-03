@@ -14,7 +14,7 @@ object App extends FinatraServer {
      * curl http://localhost:7070/ => "hello world"
      */
     get("/") { request =>
-      render.plain("hello world").toFuture
+      render.static("index.html").toFuture
     }
 
     delete("/photos") { request =>

@@ -31,9 +31,10 @@ class AppSpec extends FlatSpecHelper {
     response.code   should equal (401)
   }
 
-  "GET /hello" should "respond with hello world" in {
+  "GET /index.html" should "respond 200" in {
     get("/")
-    response.body should equal ("hello world")
+    response.body.contains("Finatra - The scala web framework") should equal(true)
+    response.code should equal(200)
   }
 
   "GET /user/foo" should "responsd with hello foo" in {
@@ -89,8 +90,8 @@ class AppSpec extends FlatSpecHelper {
 
   "GET /go_home" should "render same as /" in {
     get("/go_home")
+    response.body.contains("Finatra - The scala web framework") should equal(true)
     response.code should equal(200)
-    response.body should equal("hello world")
   }
 
   "GET /search_for_dogs" should "render same as /search?q=dogs" in {
