@@ -5,7 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>${project.artifactId}</name>
   <description>My Web App</description>
-  <inceptionYear>2014</inceptionYear>
+  <inceptionYear>2015</inceptionYear>
   <url>http://github.com/path/to/project</url>
 
   <properties>
@@ -36,7 +36,7 @@
     <dependency>
       <groupId>com.twitter</groupId>
       <artifactId>finatra_2.10</artifactId>
-      <version>1.5.3</version>
+      <version>1.6.0</version>
     </dependency>
 
   </dependencies>
