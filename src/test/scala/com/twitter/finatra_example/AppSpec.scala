@@ -1,12 +1,11 @@
 package com.twitter.finatra_example
 
 import org.scalatest.FlatSpec
-import org.scalatest.matchers.ShouldMatchers
-import com.twitter.finatra.test._
+import org.scalatest.Matchers
+import com.twitter.finatra.test.SpecHelper
 import com.twitter.finatra.FinatraServer
-import com.twitter.finatra_example._
 
-class AppSpec extends FlatSpecHelper {
+class AppSpec extends FlatSpec with SpecHelper with Matchers {
 
   val app = new App.ExampleApp
   override val server = new FinatraServer
